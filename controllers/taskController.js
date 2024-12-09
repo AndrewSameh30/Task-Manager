@@ -4,7 +4,7 @@ const Task = require('../models/task');
 exports.getAllTasks = async (req, res) => {
     try {
         const tasks = await Task.findAll({ where: { userId: req.user.userId } });
-        res.json(tasks);
+        res.status(200).json(tasks);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -45,7 +45,7 @@ exports.updateTask = async (req, res) => {
         task.status = status || task.status;
 
         await task.save();
-        res.json({ message: 'Task updated successfully' });
+        res.status(200).json({ message: 'Task updated successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -62,7 +62,7 @@ exports.deleteTask = async (req, res) => {
         }
 
         await task.destroy();
-        res.json({ message: 'Task deleted successfully' });
+        res.status(200).json({ message: 'Task deleted successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
